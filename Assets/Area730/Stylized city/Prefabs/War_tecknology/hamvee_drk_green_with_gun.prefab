@@ -111,9 +111,11 @@ GameObject:
   m_Component:
   - component: {fileID: 467392}
   - component: {fileID: 9500522}
+  - component: {fileID: 114438777984559662}
+  - component: {fileID: 65732923392741566}
   m_Layer: 0
   m_Name: hamvee_drk_green_with_gun
-  m_TagString: Untagged
+  m_TagString: Vehicle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -382,8 +384,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 141542}
   m_LocalRotation: {x: 0.000000115202326, y: 0.7071067, z: 0.7071068, w: -0.00000011520231}
-  m_LocalPosition: {x: 59.9, y: 254.87, z: 617.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 463894}
   - {fileID: 484424}
@@ -1137,3 +1139,26 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 141542}
   m_IsPrefabParent: 1
+--- !u!65 &65732923392741566
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 141542}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.080893, y: 7.7289114, z: 11.486249}
+  m_Center: {x: 0.043008324, y: -3.3645382, z: 0.49326184}
+--- !u!114 &114438777984559662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 141542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff28c3736b72004b9ab7ed530a015c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

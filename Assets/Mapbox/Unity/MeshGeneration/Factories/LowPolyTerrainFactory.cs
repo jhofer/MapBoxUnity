@@ -98,7 +98,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			{
 				tile.gameObject.AddComponent<MeshCollider>();
 			}
-
+            //TODO: ADD PATH-FININDG
 			CreateTerrainHeight(tile);
 		}
 

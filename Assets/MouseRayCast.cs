@@ -18,7 +18,7 @@ public class MouseRayCast : MonoBehaviour
 
 
     Ray _ray;
- 
+
 
     float _elapsedTime;
 
@@ -33,18 +33,34 @@ public class MouseRayCast : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-           
-                RaycastHit hit;
-                _elapsedTime = 0f;
-                _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(_ray, out hit, 1000.0f))
+
+            RaycastHit hit;
+            _elapsedTime = 0f;
+            _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(_ray, out hit, 1000.0f))
+            {
+
+
+                MonoBehaviour[] list = hit.collider.gameObject.GetComponents<MonoBehaviour>();
+                foreach (MonoBehaviour mb in list)
                 {
-
-                    _currentLatitudeLongitude = hit.point.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
-                    Debug.Log(_currentLatitudeLongitude);
-
+                    if (mb is ISelectable)
+                    {
+                        ISelectable selectable = (ISelectable)mb;
+                        selectable.Select();
+                        return;
+                    }
                 }
-            
+              
+               
+
+                _currentLatitudeLongitude = hit.point.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
+
+                GameManager.instance.ClickOnMap(hit.point, _currentLatitudeLongitude);
+             
+
+            }
+
         }
     }
 }
