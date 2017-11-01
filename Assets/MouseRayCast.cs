@@ -8,6 +8,7 @@ using Mapbox.Map;
 using Mapbox.Unity.Utilities;
 using Mapbox.Utils;
 using Mapbox.Unity.Map;
+using UnityEngine.AI;
 
 public class MouseRayCast : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class MouseRayCast : MonoBehaviour
     AbstractMap _map;
 
 
+    [SerializeField]
+    public Transform prefab;
 
 
     Ray _ray;
@@ -51,16 +54,36 @@ public class MouseRayCast : MonoBehaviour
                         return;
                     }
                 }
-              
-               
+
+
 
                 _currentLatitudeLongitude = hit.point.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
 
                 GameManager.instance.ClickOnMap(hit.point, _currentLatitudeLongitude);
-             
+
 
             }
 
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            RaycastHit hit;
+            _elapsedTime = 0f;
+            _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(_ray, out hit, 1000.0f))
+            {
+                var spanPos = hit.point;
+                //spanPos.y -=1f;
+                var go = Instantiate(prefab, spanPos, Quaternion.identity).gameObject;
+                NavMeshHit closestHit;
+                if (NavMesh.SamplePosition(spanPos, out closestHit, 500,1))
+                {
+                    go.transform.position = closestHit.position;
+                   
+                    //TODO
+                }else
+                Debug.LogError("Could not find position on NavMesh!");
+            }
         }
     }
 }

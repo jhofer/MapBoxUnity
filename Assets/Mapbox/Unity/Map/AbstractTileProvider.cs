@@ -5,13 +5,13 @@
 	using UnityEngine;
 	using Mapbox.Map;
 	using System.Linq;
+    using UnityEngine.AI;
 
-	public abstract class AbstractTileProvider : MonoBehaviour, ITileProvider
+    public abstract class AbstractTileProvider : MonoBehaviour, ITileProvider
 	{
 		public event Action<UnwrappedTileId> OnTileAdded = delegate { };
 		public event Action<UnwrappedTileId> OnTileRemoved = delegate { };
-
-		protected IMap _map;
+        protected IMap _map;
 
 		protected Dictionary<UnwrappedTileId, byte> _activeTiles = new Dictionary<UnwrappedTileId, byte>();
 
@@ -29,8 +29,9 @@
 				return;
 			}
 
-			_activeTiles.Add(tile, 0);
+            _activeTiles.Add(tile, 0);
 			OnTileAdded(tile);
+     
 		}
 
 		protected void RemoveTile(UnwrappedTileId tile)

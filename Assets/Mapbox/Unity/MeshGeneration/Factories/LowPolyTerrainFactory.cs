@@ -6,14 +6,17 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 	using Mapbox.Unity.MeshGeneration.Enums;
 	using Mapbox.Unity.MeshGeneration.Data;
 	using Utils;
+    using UnityEngine.AI;
 
-	/// <summary>
-	/// Uses Mapbox Terrain api and creates terrain meshes.
-	/// </summary>
-	[CreateAssetMenu(menuName = "Mapbox/Factories/Terrain Factory - Low Poly")]
+    /// <summary>
+    /// Uses Mapbox Terrain api and creates terrain meshes.
+    /// </summary>
+    [CreateAssetMenu(menuName = "Mapbox/Factories/Terrain Factory - Low Poly")]
 	public class LowPolyTerrainFactory : AbstractTileFactory
 	{
-		[SerializeField]
+        
+
+        [SerializeField]
 		private Material _baseMaterial = null;
 		[SerializeField]
 		private MapIdType _mapIdType;
@@ -98,9 +101,15 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			{
 				tile.gameObject.AddComponent<MeshCollider>();
 			}
+
+          
+
+
             //TODO: ADD PATH-FININDG
-			CreateTerrainHeight(tile);
-		}
+            CreateTerrainHeight(tile);
+
+            
+        }
 
 		private void CreateBaseMesh(UnityTile tile)
 		{
@@ -168,7 +177,9 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		internal override void OnUnregistered(UnityTile tile)
 		{
 			_meshData.Remove(tile.UnwrappedTileId);
-		}
+            tile.gameObject.GetComponentInParent<NavMeshSurface>().BuildNavMesh();
+
+        }
 
 		/// <summary>
 		/// Creates the non-flat terrain using a height multiplier

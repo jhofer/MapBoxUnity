@@ -5,14 +5,17 @@ namespace Mapbox.Unity.Map
 	using Mapbox.Map;
 	using Mapbox.Unity.Utilities;
 	using Mapbox.Utils;
+    using UnityEngine.AI;
 
-	public class CameraBoundsTileProvider : AbstractTileProvider
+
+    public class CameraBoundsTileProvider : AbstractTileProvider
 	{
 		[SerializeField]
 		Camera _camera;
 
-		// TODO: change to Vector4 to optimize for different aspect ratios.
-		[SerializeField]
+      
+        // TODO: change to Vector4 to optimize for different aspect ratios.
+        [SerializeField]
 		int _visibleBuffer;
 
 		[SerializeField]
@@ -45,11 +48,12 @@ namespace Mapbox.Unity.Map
 			{
 				return;
 			}
-
-			_elapsedTime += Time.deltaTime;
+           
+            _elapsedTime += Time.deltaTime;
 			if (_elapsedTime >= _updateInterval)
 			{
-				_elapsedTime = 0f;
+               // GetComponent<NavMeshSurface>().BuildNavMesh();
+                _elapsedTime = 0f;
 				_ray = _camera.ViewportPointToRay(_viewportTarget);
 				if (_groundPlane.Raycast(_ray, out _hitDistance))
 				{
@@ -58,13 +62,16 @@ namespace Mapbox.Unity.Map
 
 					if (!_currentTile.Equals(_cachedTile))
 					{
-						// FIXME: this results in bugs at world boundaries! Does not cleanly wrap. Negative tileIds are bad.
-						for (int x = _currentTile.X - _visibleBuffer; x <= (_currentTile.X + _visibleBuffer); x++)
+                       
+                        // FIXME: this results in bugs at world boundaries! Does not cleanly wrap. Negative tileIds are bad.
+                        for (int x = _currentTile.X - _visibleBuffer; x <= (_currentTile.X + _visibleBuffer); x++)
 						{
 							for (int y = _currentTile.Y - _visibleBuffer; y <= (_currentTile.Y + _visibleBuffer); y++)
 							{
 								AddTile(new UnwrappedTileId(_map.Zoom, x, y));
-							}
+                               
+
+                            }
 						}
 						_cachedTile = _currentTile;
 						Cleanup(_currentTile);
