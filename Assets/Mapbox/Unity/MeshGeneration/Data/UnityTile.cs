@@ -8,8 +8,9 @@ namespace Mapbox.Unity.MeshGeneration.Data
 	using System;
 	using Mapbox.Unity.Map;
 	using System.Collections.Generic;
+    using UnityEngine.AI;
 
-	public class UnityTile : MonoBehaviour
+    public class UnityTile : MonoBehaviour
 	{
 		[SerializeField]
 		Texture2D _rasterData;
@@ -107,8 +108,9 @@ namespace Mapbox.Unity.MeshGeneration.Data
 		public TilePropertyState RasterDataState;
 		public TilePropertyState HeightDataState;
 		public TilePropertyState VectorDataState;
+        internal NavMeshSurface navMesh;
 
-		public event Action<UnityTile> OnHeightDataChanged = delegate { };
+        public event Action<UnityTile> OnHeightDataChanged = delegate { };
 		public event Action<UnityTile> OnRasterDataChanged = delegate { };
 		public event Action<UnityTile> OnVectorDataChanged = delegate { };
 

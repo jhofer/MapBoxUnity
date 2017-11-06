@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 public class Baker : MonoBehaviour
 {
-    private float _elapsedTime;
 
     [SerializeField]
     private float _updateInterval ;
@@ -15,6 +14,7 @@ public class Baker : MonoBehaviour
     AbstractTileProvider tileProvider;
 
     bool shouldBake = true;
+    private float triggerHappend;
 
     // Use this for initialization
     void Start()
@@ -26,16 +26,17 @@ public class Baker : MonoBehaviour
     private void TilesChanged(Mapbox.Map.UnwrappedTileId obj)
     {
         shouldBake = true;
+        triggerHappend = Time.time;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        _elapsedTime += Time.deltaTime;
-        if (_elapsedTime >= _updateInterval || shouldBake)
+        var elapsedTime = Time.time - triggerHappend;
+        if (elapsedTime> _updateInterval && shouldBake)
         {
             GetComponent<NavMeshSurface>().BuildNavMesh();
-            _elapsedTime = 0f;
+        
             shouldBake = false;
         }
 

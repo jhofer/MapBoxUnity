@@ -53,8 +53,9 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		private List<int> _newTriangleList;
 		private Vector3 _newDir;
 		private int _vertA, _vertB, _vertC;
+        private NavMeshSurface navMesh;
 
-		public string MapId
+        public string MapId
 		{
 			get
 			{
@@ -101,17 +102,16 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 			{
 				tile.gameObject.AddComponent<MeshCollider>();
 			}
+           
 
-          
-
-
-            //TODO: ADD PATH-FININDG
             CreateTerrainHeight(tile);
+         
 
-            
+
+
         }
 
-		private void CreateBaseMesh(UnityTile tile)
+        private void CreateBaseMesh(UnityTile tile)
 		{
 			//TODO use arrays instead of lists
 			_newVertexList.Clear();
@@ -177,7 +177,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		internal override void OnUnregistered(UnityTile tile)
 		{
 			_meshData.Remove(tile.UnwrappedTileId);
-            tile.gameObject.GetComponentInParent<NavMeshSurface>().BuildNavMesh();
+           // tile.gameObject.GetComponentInParent<NavMeshSurface>().BuildNavMesh();
 
         }
 

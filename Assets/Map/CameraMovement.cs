@@ -1,8 +1,9 @@
 namespace Mapbox.Examples
 {
-	using UnityEngine;
+    using System;
+    using UnityEngine;
 
-	public class CameraMovement : MonoBehaviour
+    public class CameraMovement : MonoBehaviour
 	{
 		[SerializeField]
 		float _panSpeed = 20f;
@@ -25,7 +26,7 @@ namespace Mapbox.Examples
         Quaternion _originalRotation;
 		Vector3 _origin;
 		Vector3 _delta;
-		bool _shouldDrag;
+		public bool _shouldDrag;
 
         public bool moveToPlayer = true;
 
@@ -44,9 +45,24 @@ namespace Mapbox.Examples
 			}
 		}
 
-     
-      
 
+        void Start()
+        {
+            GameManager.instance.mouseManager.OnDrag += Drag;
+            GameManager.instance.mouseManager.OnDragStop += DragStop;
+        }
+
+        private void DragStop(int button, Vector3 arg2)
+        {
+            _shouldDrag = false;
+        }
+
+        private void Drag(int button, Vector3 mouseOrigin)
+        {
+            if(button == 0)
+             _shouldDrag = true;
+
+        }
 
         void LateUpdate()
 		{
@@ -71,36 +87,33 @@ namespace Mapbox.Examples
             }
 
 
-			if (Input.GetMouseButton(0))
-			{
-				var mousePosition = Input.mousePosition;
-				mousePosition.z = _referenceCamera.transform.localPosition.y;
-				_delta = _referenceCamera.ScreenToWorldPoint(mousePosition) - _referenceCamera.transform.localPosition;
-				_delta.y = 0f;
-				if (_shouldDrag == false)
-				{
-					_shouldDrag = true;
-					_origin = _referenceCamera.ScreenToWorldPoint(mousePosition);
-				}
-			}
-			else
-			{
-				_shouldDrag = false;
-			}
+            if (Input.GetMouseButton(0))
+            {
+                var mousePosition = Input.mousePosition;
+                mousePosition.z = _referenceCamera.transform.localPosition.y;
+                _delta = _referenceCamera.ScreenToWorldPoint(mousePosition) - _referenceCamera.transform.localPosition;
+                _delta.y = 0f;
+                if (_shouldDrag == false)
+                { 
+                  
+                    _origin = _referenceCamera.ScreenToWorldPoint(mousePosition);
+                }
+            }
+           
 
-			if (_shouldDrag == true)
-			{
-				var offset = _origin - _delta;
-				offset.y = transform.localPosition.y;
-				transform.localPosition = offset;
-			}
-			else
-			{
-				x = Input.GetAxis("Horizontal");
-				z = Input.GetAxis("Vertical");
-				y = -Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed;
-				transform.localPosition += transform.forward * y + (_originalRotation * new Vector3(x * _panSpeed, 0, z * _panSpeed));
-			}
-		}
-	}
+            if (_shouldDrag == true)
+            {
+                var offset = _origin - _delta;
+                offset.y = transform.localPosition.y;
+                transform.localPosition = offset;
+
+                
+            }
+
+            x = Input.GetAxis("Horizontal");
+            z = Input.GetAxis("Vertical");
+            y = -Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed;
+            transform.localPosition += transform.forward * y + (_originalRotation * new Vector3(x * _panSpeed, 0, z * _panSpeed));
+        }
+    }
 }

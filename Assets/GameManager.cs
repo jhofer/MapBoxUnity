@@ -7,8 +7,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
 
-    [SerializeField]
-    HashSet<GameObject> selection = new HashSet<GameObject>();
+    public HashSet<GameObject> selection = new HashSet<GameObject>();
+
+
+    
+    public MouseManager mouseManager = new MouseManager();
 
     public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
 
@@ -29,8 +32,7 @@ public class GameManager : MonoBehaviour {
         //Sets this to not be destroyed when reloading scene
         DontDestroyOnLoad(gameObject);
 
-
-
+       
         //Call the InitGame function to initialize the first level 
         InitGame();
     }
@@ -39,10 +41,20 @@ public class GameManager : MonoBehaviour {
     void InitGame()
     {
         //Call the SetupScene function of the BoardManager script, pass it current level number.
+  
         Debug.Log("GameManager Created");
 
     }
 
+    internal void SpawnUnit(Vector3 point)
+    {
+        throw new NotImplementedException();
+    }
+
+     void Update()
+    {
+        mouseManager.CheckInput();
+    }
 
 
     internal void AddSelection(GameObject gameObject)
@@ -53,20 +65,5 @@ public class GameManager : MonoBehaviour {
             selection.Add(gameObject);
     }
 
-    internal void ClickOnMap(Vector3 point, Vector2d currentLatitudeLongitude)
-    {
-       foreach(var go in this.selection)
-        {
-            MonoBehaviour[] list =go.GetComponents<MonoBehaviour>();
-            foreach (MonoBehaviour mb in list)
-            {
-                if (mb is IMovable)
-                {
-                    IMovable movable = (IMovable)mb;
-                    movable.Move(point);
-                    
-                }
-            }
-        }
-    }
+
 }
