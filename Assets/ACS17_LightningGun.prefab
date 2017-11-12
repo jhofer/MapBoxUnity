@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 65143679107158470}
   - component: {fileID: 114906334638511710}
   - component: {fileID: 195818117047214832}
+  - component: {fileID: 114541775247069966}
   m_Layer: 0
   m_Name: ACS17_LightningGun
   m_TagString: Untagged
@@ -3946,6 +3947,33 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114541775247069966
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1130123214213022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b75110b2b75304f91f36dd47027d00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Speed: 0.8
+  m_TurnSpeed: 1
+  currentHealth: 100
+  tankDead: {fileID: 8300000, guid: 92bc634a950bde046a12ff66b131ec1f, type: 3}
+  m_ExplosionParticles: {fileID: 0}
+  m_SmokeEffect: {fileID: 0}
+  DeadMax: 4
+  targetPointsPos:
+  - pos: {fileID: 0}
+    act: 
+  - pos: {fileID: 0}
+    act: wait
+  - pos: {fileID: 0}
+    act: wait
+  - pos: {fileID: 0}
+    act: wait
 --- !u!114 &114906334638511710
 MonoBehaviour:
   m_ObjectHideFlags: 1
