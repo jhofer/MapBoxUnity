@@ -62,14 +62,42 @@ public class UnitMovement : MonoBehaviour
 
         //move forward
         //
-        //Debug.Log("speeed" + agent.velocity.sqrMagnitude);
-        if (agent.velocity.sqrMagnitude > 10)
-        { //if the target is far move otherwise stand
-            animName = "WalkForward";
+      
+        //if (agent.velocity.sqrMagnitude > 4)
+        //{ //if the target is far move otherwise stand
+        //    Debug.Log("speeed" + agent.velocity.sqrMagnitude);
+        //    if (animName == "ChangeToWheels")
+        //    {
+        //        animName = "MoveWheelsForward";
+        //    }
+        //    if (animName == "WalkForward")
+        //    {
+        //        animName = "ChangeToWheels";
+        //    }
+        //    //turn towards  
+        //} else
+        if (agent.velocity.sqrMagnitude > 0){
+
+            if (animName == "MoveWheelsForward")
+            {
+                animName = "ChangeToWalk";
+            }
+            if (animName == "ChangeToWalk")
+            {
+                animName = "WalkForward";
+            }
+            if (animName == "Idle")
+            {
+                animName = "WalkForward";
+            }
             //turn towards  
         }
         else
         {
+            if (animName == "Idle")
+            {
+                animName = "WalkForward";
+            }
             animName = "Idle";
         }
         //     else {

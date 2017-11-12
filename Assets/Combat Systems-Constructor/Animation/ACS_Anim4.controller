@@ -32,19 +32,19 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: ACS_ChangeToWeels
+  - m_Name: ACS_ChangeToWheels
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: ACS_MoveWeelsForward
+  - m_Name: ACS_MoveWheelsForward
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: ACS_MoveWeelsBack
+  - m_Name: ACS_MoveWheelsBack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -428,7 +428,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: ACS_ChangeToWeels
+    m_ConditionEvent: ACS_ChangeToWheels
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102151091852616266}
@@ -452,7 +452,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: ACS_MoveWeelsBack
+    m_ConditionEvent: ACS_MoveWheelsBack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102964822814138502}
@@ -476,7 +476,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: ACS_MoveWeelsForward
+    m_ConditionEvent: ACS_MoveWheelsForward
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102138601129173080}
@@ -498,7 +498,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ACS_WalkForwad
+  m_Name: ACS_WalkForward
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -573,7 +573,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ACS_MoveWeelsForwad
+  m_Name: ACS_MoveWeelsForward
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -907,7 +907,7 @@ AnimatorStateMachine:
     m_Position: {x: 492, y: 408, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102925896377066530}
-    m_Position: {x: 12, y: 264, z: 0}
+    m_Position: {x: 12, y: 252, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102252754775262210}
     m_Position: {x: 12, y: 360, z: 0}
