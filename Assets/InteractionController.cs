@@ -20,11 +20,11 @@ public class InteractionController : MonoBehaviour
     [SerializeField]
     GameObject prefab;
 
+    [SerializeField]
+    GameObject unitsContainer;
 
     Ray _ray;
 
-
-    float _elapsedTime;
 
 
     Vector2d _currentLatitudeLongitude;
@@ -42,7 +42,7 @@ public class InteractionController : MonoBehaviour
     private void LongClick(int obj)
     {
         RaycastHit hit;
-        _elapsedTime = 0f;
+      
         _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(_ray, out hit, 1000.0f))
         {
@@ -51,6 +51,7 @@ public class InteractionController : MonoBehaviour
             _currentLatitudeLongitude = point.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
             
             var go =  Instantiate(prefab,hit.point,Quaternion.identity);
+            go.transform.parent = unitsContainer.transform;
             //go.AddComponent<NavMeshAgent>();
 
         }
@@ -59,7 +60,7 @@ public class InteractionController : MonoBehaviour
     private void Click(int obj)
     {
         RaycastHit hit;
-        _elapsedTime = 0f;
+       
         _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(_ray, out hit, 1000.0f))
         {
