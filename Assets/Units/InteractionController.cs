@@ -27,11 +27,17 @@ public class InteractionController : MonoBehaviour
 
 
 
-    Vector2d _currentLatitudeLongitude;
+    private Vector2d currentLatitudeLongitude;
 
+    public Vector2d CurrentLatitudeLongitude
+    {
+        get
+        {
+            return currentLatitudeLongitude;
+        }
 
-
-
+    
+    }
 
     private void Start()
     {
@@ -48,7 +54,7 @@ public class InteractionController : MonoBehaviour
         {
             var point = hit.point;
             //point.y += 1;
-            _currentLatitudeLongitude = point.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
+            currentLatitudeLongitude = point.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
             
             var go =  Instantiate(prefab,hit.point,Quaternion.identity);
             go.transform.parent = unitsContainer.transform;
@@ -64,7 +70,8 @@ public class InteractionController : MonoBehaviour
         _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(_ray, out hit, 1000.0f))
         {
-
+            var point = hit.point;
+            currentLatitudeLongitude = point.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
 
             MonoBehaviour[] list = hit.transform.gameObject.GetComponentsInParent<MonoBehaviour>();
             foreach (MonoBehaviour mb in list)
@@ -77,9 +84,7 @@ public class InteractionController : MonoBehaviour
                 }
             }
 
-            _currentLatitudeLongitude = hit.point.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
-
-            foreach (GameObject gameObject in GameManager.instance.selection)
+            foreach (GameObject gameObject in GameManager.instance.unitSelection)
             {
                 MonoBehaviour[] movables = gameObject.GetComponents<MonoBehaviour>();
                 foreach (MonoBehaviour mb in movables)

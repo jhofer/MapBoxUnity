@@ -19,8 +19,6 @@ public class VehicleController : MonoBehaviour, ISelectable, IMovable {
     public void Select()
     {
         Debug.Log("Klick Vehcile");
-      
-
         GameManager.instance.AddSelection(gameObject);
     }
 

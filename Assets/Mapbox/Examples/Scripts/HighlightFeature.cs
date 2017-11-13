@@ -2,13 +2,18 @@
 {
 	using UnityEngine;
 	using System.Collections.Generic;
+    using Mapbox.Unity.Map;
+    using Mapbox.Unity.Utilities;
+    using Mapbox.Utils;
 
-	public class HighlightFeature : MonoBehaviour
+    public class HighlightFeature : MonoBehaviour, ISelectable
 	{
 		private List<Color> _original = new List<Color>();
-		private Color _highlight = Color.red;
+		private Color _highlight = Color.blue;
+        private Color _select = Color.red;
 		private List<Material> _materials = new List<Material>();
-
+        private Vector2d location;
+        private bool hover;
 
         void MakeRed(MeshRenderer[] comps)
         {
@@ -31,9 +36,39 @@
             }
         }
 
-		void Start() {
+        void Update()
+        {
+            bool isSelected = GameManager.instance.IsBuildingSelected(location);
+            if (this.hover)
+            {
+                foreach (var item in _materials)
+                {
+                    item.color = _highlight;
+                }
+            }
+            else if (isSelected)
+            {
+                foreach (var item in _materials)
+                {
+                    item.color = _select;
+                }
+            }
 
+            else
+            {
+                for (int i = 0; i < _materials.Count; i++)
+                {
+                    _materials[i].color = _original[i];
+                }
+            }
+        }
+
+		void Start() {
+            location = MapUtils.GetGeoLocation(GetComponent<Transform>());
             MakeRed(GetComponents<MeshRenderer>());
+
+               
+         
             //  SearchMeshRenderes(GetComponent<Transform>());
             //foreach(var th in GetComponentsInChildren())
             // {
@@ -65,18 +100,21 @@
 
 		public void OnMouseEnter()
 		{
-			foreach (var item in _materials)
-			{
-				item.color = _highlight;
-			}
-		}
+
+            this.hover = true;
+         
+
+        }
 
 		public void OnMouseExit()
 		{
-			for (int i = 0; i < _materials.Count; i++)
-			{
-				_materials[i].color = _original[i];
-			}
+            this.hover = false;
+         
 		}
-	}
+
+        public void Select()
+        {
+            GameManager.instance.SelectBuilding(this.location);
+        }
+    }
 }

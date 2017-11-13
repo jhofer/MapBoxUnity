@@ -3,17 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Mapbox.Utils;
 using UnityEngine;
+using Mapbox.Unity.Map;
 
 public class GameManager : MonoBehaviour {
 
 
-    public HashSet<GameObject> selection = new HashSet<GameObject>();
+    public HashSet<GameObject> unitSelection = new HashSet<GameObject>();
 
-
-    
+   
     public MouseManager mouseManager = new MouseManager();
 
     public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
+    public HashSet<Vector2d> buildingSelection = new HashSet<Vector2d>();
 
 
     //Awake is always called before any Start functions
@@ -35,6 +36,12 @@ public class GameManager : MonoBehaviour {
        
         //Call the InitGame function to initialize the first level 
         InitGame();
+    }
+
+    internal bool IsBuildingSelected(Vector2d location)
+    {
+        Debug.Log("Check Location" + location.ToString());
+        return buildingSelection.Contains(location);
     }
 
     //Initializes the game for each level.
@@ -59,11 +66,17 @@ public class GameManager : MonoBehaviour {
 
     internal void AddSelection(GameObject gameObject)
     {
-        if (selection.Contains(gameObject))
-            selection.Remove(gameObject);
+        if (unitSelection.Contains(gameObject))
+            unitSelection.Remove(gameObject);
         else
-            selection.Add(gameObject);
+            unitSelection.Add(gameObject);
     }
 
-
+    internal void SelectBuilding(Vector2d location)
+    {
+        if (buildingSelection.Contains(location))
+            buildingSelection.Remove(location);
+        else
+            buildingSelection.Add(location);
+    }
 }
