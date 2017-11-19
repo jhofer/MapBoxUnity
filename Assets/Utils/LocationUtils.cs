@@ -10,11 +10,11 @@ public class MapUtils {
 
 
 	// Use this for initialization
-	public static Vector2d GetGeoLocation(Transform transform)
+	public static Vector2d GetGeoLocation(Vector3 position)
     {
         var mapGo = GameObject.Find("Map");
         var map = mapGo.GetComponent<IMap>();
-        return transform.position.GetGeoPosition(map.CenterMercator, map.WorldRelativeScale);
+        return position.GetGeoPosition(map.CenterMercator, map.WorldRelativeScale);
    
     }
 }

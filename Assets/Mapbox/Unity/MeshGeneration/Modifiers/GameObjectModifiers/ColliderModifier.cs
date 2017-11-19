@@ -15,10 +15,14 @@ namespace Mapbox.Unity.MeshGeneration.Modifiers
             switch (_colliderType)
             {
                 case ColliderType.BoxCollider:
-                    fb.gameObject.AddComponent<BoxCollider>();
+                    fb.gameObject.AddComponent<BoxCollider>().isTrigger=true;
                     break;
                 case ColliderType.MeshCollider:
-                    fb.gameObject.AddComponent<MeshCollider>();
+                    var collider =  fb.gameObject.AddComponent<MeshCollider>();
+                    
+                    //fb.gameObject.AddComponent<Rigidbody>();
+
+
                     break;
                 case ColliderType.SphereCollider:
                     fb.gameObject.AddComponent<SphereCollider>();

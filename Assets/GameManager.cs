@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Mapbox.Utils;
 using UnityEngine;
 using Mapbox.Unity.Map;
+using System.Linq;
 
 public class GameManager : MonoBehaviour {
 
@@ -40,7 +41,7 @@ public class GameManager : MonoBehaviour {
 
     internal bool IsBuildingSelected(Vector2d location)
     {
-        Debug.Log("Check Location" + location.ToString());
+      
         return buildingSelection.Contains(location);
     }
 
@@ -78,5 +79,25 @@ public class GameManager : MonoBehaviour {
             buildingSelection.Remove(location);
         else
             buildingSelection.Add(location);
+    }
+
+    internal void SelectBuildings(HashSet<Vector2d> locations)
+    {
+       
+        if (buildingSelection.Contains(locations.First())){
+            foreach (var item in locations.ToList())
+            {
+                buildingSelection.Remove(item);
+            }
+        }
+
+        else
+        {
+            foreach (var item in locations.ToList())
+            {
+                buildingSelection.Add(item);
+            }
+        }
+          
     }
 }
