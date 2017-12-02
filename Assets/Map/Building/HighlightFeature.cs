@@ -146,7 +146,7 @@
 
         public void Select()
         {
-            
+            Debug.Log("click building");
             var closeBuildings = new HashSet<Vector2d>();
 
             FindNearBuildings(gameObject, ref closeBuildings);
