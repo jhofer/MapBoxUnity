@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class RoofTop: MonoBehaviour {
+public class RoofTop : MonoBehaviour
+{
     private GameObject go;
     private Vector3 point;
 
@@ -23,8 +24,8 @@ public class RoofTop: MonoBehaviour {
         Vector3[] vertices = mesh.vertices;
         int[] triangles = mesh.triangles;
         int length = mesh.triangles.Length;
-        for (int i = 0; i< length; i += 3)
-     {
+        for (int i = 0; i < length; i += 3)
+        {
             Vector3 p1 = vertices[triangles[i + 0]];
             Vector3 p2 = vertices[triangles[i + 1]];
             Vector3 p3 = vertices[triangles[i + 2]];
@@ -34,7 +35,8 @@ public class RoofTop: MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         GameObject go = GameObject.Find("Prefabs");
         var prefabs = (PrefabContainer)go.GetComponent<PrefabContainer>();
         var prefab = prefabs.roofDeco;
@@ -52,74 +54,41 @@ public class RoofTop: MonoBehaviour {
 
 
 
-        float randomX = Random.Range(collider.bounds.min.x, collider.bounds.max.x);
-        float randomZ = Random.Range(collider.bounds.min.z, collider.bounds.max.z);
-        float centerX = collider.bounds.center.x;
-        float centerY = collider.bounds.center.y;
-        float centerZ = collider.bounds.center.z;
-
-        var pos = new Vector3(centerX + randomX, centerY + collider.bounds.max.y + 5f, centerZ + randomZ);
         var spawnPoint = transform.TransformPoint(collider.bounds.center);
 
         this.go = Instantiate(prefab, collider.bounds.center, transform.rotation);
-        //RaycastHit hit;
-        //if (Physics.Raycast(new Vector3(randomX, collider.bounds.max.y + 5f, randomZ), -Vector3.up, out hit))
-        //{
-        //   // if (hit.point.y >= collider.bounds.max.y-0.2) {
-        //        Instantiate(prefab, hit.point, transform.rotation);
-        //   // }
-        //}
-        //else
-        //{
-        //    // the raycast didn't hit, maybe there's a hole in the terrain?
-        //}
 
-
-
-
-        //var vertices = GetComponent<MeshFilter>().mesh.b;
-        //for (var i = 0; i < vertices.Length; i++)
-        //{
-        //    var spawnPoint = transform.TransformPoint(vertices[i]);
-        //    var q = Random.Range(0, vertices.Length);
-        //    spawnPoint = transform.TransformPoint(vertices[q]);
-        //    Instantiate(prefab, spawnPoint, transform.rotation);
-        //}
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-        GameObject go = GameObject.Find("Prefabs");
-        var prefabs = (PrefabContainer)go.GetComponent<PrefabContainer>();
-        var prefab = prefabs.roofDeco;
 
-        var collider = GetComponent<Collider>();
-        var mesh = GetComponent<MeshFilter>().sharedMesh;
-        //var vertices = mesh.vertices;
-        //for (var i = 0; i < vertices.Length; i++)
-        //{
-        //    var spawnPoint = transform.TransformPoint(vertices[i]);
-        //    var q = Random.Range(0, vertices.Length);
-        //    spawnPoint = transform.TransformPoint(vertices[q]);
-        //    Instantiate(prefab, spawnPoint, transform.rotation);
-        //}
+    // Update is called once per frame
+    void Update()
+    {
 
-        if(this.point == null)
+
+        //  this.go.transform.position = spawnPoint;
+        while (this.point == default(Vector3))
         {
+         
+            GameObject go = GameObject.Find("Prefabs");
+            var prefabs = (PrefabContainer)go.GetComponent<PrefabContainer>();
+            var prefab = prefabs.roofDeco;
+
+            var collider = GetComponent<Collider>();
+            var mesh = GetComponent<MeshFilter>().sharedMesh;
+
+
+
 
             float randomX = Random.Range(mesh.bounds.min.x, mesh.bounds.max.x);
             float randomZ = Random.Range(mesh.bounds.min.z, mesh.bounds.max.z);
-            float centerX = mesh.bounds.center.x;
-            float centerY = mesh.bounds.center.y;
-            float centerZ = mesh.bounds.center.z;
-            var pos = new Vector3(randomX, mesh.bounds.max.y + 1, randomZ);
-            var minHeight = (mesh.bounds.center.y + mesh.bounds.max.y) / 2;
-            var lowestP = new Vector3(randomX, minHeight / 2, randomZ);
-            var spawnPoint = transform.TransformPoint(pos);
-            var lowestPoint = transform.TransformPoint(lowestP);
 
-            //  this.go.transform.position = spawnPoint;
+            var minHeight = (mesh.bounds.center.y + mesh.bounds.max.y) / 2;
+            var lowestPoint = transform.TransformPoint(new Vector3(randomX, minHeight, randomZ));
+
+
+            var spawnPoint = transform.TransformPoint(new Vector3(randomX, mesh.bounds.max.y + 1, randomZ));
+
             RaycastHit hit;
             if (Physics.Raycast(spawnPoint, -Vector3.up, out hit))
             {
@@ -131,11 +100,5 @@ public class RoofTop: MonoBehaviour {
                 }
             }
         }
-
-        
-
-      
-      
-        
     }
 }
