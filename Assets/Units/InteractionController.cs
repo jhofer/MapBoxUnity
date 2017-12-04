@@ -58,7 +58,7 @@ public class InteractionController : MonoBehaviour
             
             var go =  Instantiate(prefab,hit.point,Quaternion.identity);
             go.transform.parent = unitsContainer.transform;
-            //go.AddComponent<NavMeshAgent>();
+          
 
         }
     }
@@ -89,9 +89,9 @@ public class InteractionController : MonoBehaviour
                 MonoBehaviour[] movables = gameObject.GetComponents<MonoBehaviour>();
                 foreach (MonoBehaviour mb in movables)
                 {
-                    if (mb is IMovable)
+                    if (mb is IUnit)
                     {
-                        IMovable selectable = (IMovable)mb;
+                        IUnit selectable = (IUnit)mb;
                         selectable.Move(hit.point);
                        
                     }

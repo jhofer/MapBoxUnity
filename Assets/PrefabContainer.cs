@@ -5,5 +5,5 @@ using UnityEngine;
 public class PrefabContainer : MonoBehaviour {
 
     [SerializeField]
-    public GameObject roofDeco;
+    public GameObject[] roofDecos;
 }

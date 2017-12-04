@@ -39,7 +39,7 @@ public class RoofTop : MonoBehaviour
     {
         GameObject go = GameObject.Find("Prefabs");
         var prefabs = (PrefabContainer)go.GetComponent<PrefabContainer>();
-        var prefab = prefabs.roofDeco;
+        var prefab = prefabs.roofDecos[Random.Range(0, prefabs.roofDecos.Length)];
 
         var collider = GetComponent<Collider>();
         var mesh = GetComponent<MeshFilter>().sharedMesh;
@@ -70,9 +70,7 @@ public class RoofTop : MonoBehaviour
         while (this.point == default(Vector3))
         {
          
-            GameObject go = GameObject.Find("Prefabs");
-            var prefabs = (PrefabContainer)go.GetComponent<PrefabContainer>();
-            var prefab = prefabs.roofDeco;
+        
 
             var collider = GetComponent<Collider>();
             var mesh = GetComponent<MeshFilter>().sharedMesh;
@@ -96,6 +94,7 @@ public class RoofTop : MonoBehaviour
                 {
                     this.point = hit.point;
                     this.go.transform.position = this.point;
+                    this.go.transform.parent = this.transform;
 
                 }
             }

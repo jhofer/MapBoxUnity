@@ -8,10 +8,10 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour {
 
-
+    public string currentPlayer = "Jonas";//TODO: set real player 
     public HashSet<GameObject> unitSelection = new HashSet<GameObject>();
+    public Dictionary<string, HashSet<IUnit>> playerUnits = new Dictionary<string, HashSet<IUnit>>();
 
-   
     public MouseManager mouseManager = new MouseManager();
 
     public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
@@ -99,5 +99,27 @@ public class GameManager : MonoBehaviour {
             }
         }
           
+    }
+
+    internal void AddUnit(string player, IUnit gameObject)
+    {
+        if (!playerUnits.ContainsKey(player))
+        {
+            playerUnits[player] = new HashSet<IUnit>();
+        }
+        playerUnits[player].Add(gameObject);
+
+    }
+
+    internal HashSet<IUnit> GetPlayerUnits()
+    {
+        if (playerUnits.ContainsKey(currentPlayer))
+        {
+            return playerUnits[currentPlayer];
+        }
+        else
+        {
+            return new HashSet<IUnit>();
+        }
     }
 }

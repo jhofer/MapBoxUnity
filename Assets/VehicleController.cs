@@ -1,13 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Mapbox.Utils;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class VehicleController : MonoBehaviour, ISelectable, IMovable {
+public class VehicleController : MonoBehaviour, ISelectable, IUnit {
 
     public Vector3 target;
     private object agent;
     private float startTime;
+
+    public Vector2d GetLocation()
+    {
+       return MapUtils.GetGeoLocation(transform.position);
+    
+    }
 
     public void Move(Vector3 target)
     {
@@ -26,7 +33,7 @@ public class VehicleController : MonoBehaviour, ISelectable, IMovable {
 
     // Use this for initialization
     void Start () {
-
+        GameManager.instance.AddUnit("Jonas", this);//TODO: set real player 
         NavMeshHit closestHit;
 
         //if (NavMesh.SamplePosition(gameObject.transform.position, out closestHit, 500f, NavMesh.AllAreas))
