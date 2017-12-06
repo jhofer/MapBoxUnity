@@ -17,3 +17,5 @@ MonoBehaviour:
     _script: {fileID: 11500000, guid: 64cb1b303dc6db64aa28a4229e62e9ed, type: 3}
   - _typeString: RoofTop
     _script: {fileID: 11500000, guid: d44a69725124c844f863ec7fbd7f8874, type: 3}
+  - _typeString: cakeslice.Outline
+    _script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
