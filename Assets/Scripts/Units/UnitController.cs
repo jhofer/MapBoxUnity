@@ -4,11 +4,12 @@ using Mapbox.Utils;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class VehicleController : MonoBehaviour, ISelectable, IUnit {
+public class UnitController : MonoBehaviour, ISelectable, IMovable {
 
     public Vector3 target;
     private object agent;
     private float startTime;
+    private bool selected = false;
 
     public Vector2d GetLocation()
     {
@@ -25,7 +26,7 @@ public class VehicleController : MonoBehaviour, ISelectable, IUnit {
 
     public void Select()
     {
-        Debug.Log("Klick Vehcile");
+        this.selected = !this.selected;
         GameManager.instance.AddSelection(gameObject);
     }
 
@@ -44,6 +45,9 @@ public class VehicleController : MonoBehaviour, ISelectable, IUnit {
 	
 	// Update is called once per frame
 	void Update () {
+
+       var projector =  GetComponentInChildren<Projector>(true);
+        projector.enabled = this.selected;
         //if (Time.time > .1f)
         //{
         //    GetComponent<NavMeshAgent>().enabled = true;

@@ -3,7 +3,7 @@
 using Mapbox.Utils;
 using UnityEngine;
 
-public interface IUnit
+public interface IMovable
 {
     void Move(Vector3 target);
 

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
 
     public string currentPlayer = "Jonas";//TODO: set real player 
     public HashSet<GameObject> unitSelection = new HashSet<GameObject>();
-    public Dictionary<string, HashSet<IUnit>> playerUnits = new Dictionary<string, HashSet<IUnit>>();
+    public Dictionary<string, HashSet<IMovable>> playerUnits = new Dictionary<string, HashSet<IMovable>>();
 
     public MouseManager mouseManager = new MouseManager();
 
@@ -101,17 +101,17 @@ public class GameManager : MonoBehaviour {
           
     }
 
-    internal void AddUnit(string player, IUnit gameObject)
+    internal void AddUnit(string player, IMovable gameObject)
     {
         if (!playerUnits.ContainsKey(player))
         {
-            playerUnits[player] = new HashSet<IUnit>();
+            playerUnits[player] = new HashSet<IMovable>();
         }
         playerUnits[player].Add(gameObject);
 
     }
 
-    internal HashSet<IUnit> GetPlayerUnits()
+    internal HashSet<IMovable> GetPlayerUnits()
     {
         if (playerUnits.ContainsKey(currentPlayer))
         {
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour {
         }
         else
         {
-            return new HashSet<IUnit>();
+            return new HashSet<IMovable>();
         }
     }
 }

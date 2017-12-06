@@ -89,9 +89,9 @@ public class InteractionController : MonoBehaviour
                 MonoBehaviour[] movables = gameObject.GetComponents<MonoBehaviour>();
                 foreach (MonoBehaviour mb in movables)
                 {
-                    if (mb is IUnit)
+                    if (mb is IMovable)
                     {
-                        IUnit selectable = (IUnit)mb;
+                        IMovable selectable = (IMovable)mb;
                         selectable.Move(hit.point);
                        
                     }

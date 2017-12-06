@@ -97,8 +97,8 @@
 
         void Start()
         {
-                    
-           
+
+            gameObject.layer = 9;
             tag = "Building";
 
         }

@@ -28,17 +28,42 @@ public class Baker : MonoBehaviour
         shouldBake = true;
         triggerHappend = Time.time;
     }
-
+   
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
+        var agents = GameObject.FindObjectsOfType(typeof(NavMeshAgent)) as NavMeshAgent[];
         var elapsedTime = Time.time - triggerHappend;
         if (elapsedTime> _updateInterval && shouldBake)
         {
+            //save destinations
+            Dictionary<NavMeshAgent, Vector3> destinations = new Dictionary<NavMeshAgent, Vector3>();
+            Dictionary<NavMeshAgent, Vector3> speed = new Dictionary<NavMeshAgent, Vector3>();
+            for (int i = 0; i < agents.Length; i++)
+            {
+                var agent = agents[i];
+                destinations[agent] = agent.destination;
+                speed[agent] = agent.velocity;
+            }
+
+           //build new navmesh
             GetComponent<NavMeshSurface>().BuildNavMesh();
-        
+
+            //restart all agents after BuildNavMesh
+            for (int i = 0; i < agents.Length; i++)
+            {
+                var agent = agents[i];
+                agent.SetDestination(destinations[agent]);
+                agent.velocity=speed[agent];
+
+
+
+            }
+
+
             shouldBake = false;
         }
+      
 
 
     }

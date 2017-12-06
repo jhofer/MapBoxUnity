@@ -88,7 +88,7 @@ public class CameraBoundsTileProvider : AbstractTileProvider
         }
 
         var newUnitTiles = new HashSet<Vector2d>();
-        foreach (IUnit item in GameManager.instance.GetPlayerUnits())
+        foreach (IMovable item in GameManager.instance.GetPlayerUnits())
         {
             var unitTile = TileCover.CoordinateToTileId(item.GetLocation(), _map.Zoom);
             for (int x = unitTile.X - _visibleBuffer; x <= (unitTile.X + _visibleBuffer); x++)
