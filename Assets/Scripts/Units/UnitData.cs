@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitData : MonoBehaviour {
-
-    [Header("Unit")]
-    [Tooltip("Health of the Object")]
-    public float health = 100;
-
+public class UnitData : EntityData {
+    
     [Header("Attack")]
     [Tooltip("Time after which next shot will be fired")]
     public float fireDelay = 0.1f;
     [Tooltip("Range of the Turret")]
     public float range = 20;
+    [Tooltip("Attackable")]
+    public string[] attackable = new string[] { "Unit" };// "Building"
 
 
     [Header("Ammo")]

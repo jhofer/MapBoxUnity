@@ -1,49 +1,54 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class AimSystem : MonoBehaviour {
 
-    TurretController controller;
-    private LineRenderer lineRenderer; // For laser effect
+    private UnitData unitData;
+ 
 
-    [Header("Points")]
-    [Tooltip("Point from which raycast should start")]
-    public Transform startPoint;
+    [Header("Targets")]
+    public GameObject nearestTarget;
 
     void Start()
     {
-        lineRenderer = startPoint.GetComponent<LineRenderer>();
-        controller = this.GetComponent<TurretController>();
+        unitData = this.GetComponent<UnitData>();
     }
 
     void FixedUpdate()
     {
 
-        if (startPoint && lineRenderer && !controller._Health.isDestroyed)
+       
+        Collider[] colliders = Physics.OverlapSphere(transform.position, unitData.range);
+        List<GameObject> inRange = new List<GameObject>();
+        for (int i  = 0; i <= colliders.Length - 1; i++)
         {
+            var go = colliders[i].gameObject;
+            var isAttackable = unitData.attackable.Contains(go.tag);
+            var isNotThis = go != gameObject;
 
-            RaycastHit hit;
+         
 
-            float range = controller._Shooting.range; //get range from the ShootingSystem script
-
-            if (Physics.Raycast(startPoint.position, startPoint.forward, out hit, range))
+            if (isAttackable && isNotThis )
             {
-
-                lineRenderer.SetPosition(1, new Vector3(0, 0, hit.distance));//if raycast hit somewhere then stop laser effect at that point
-                controller._Shooting.Fire(hit.point, hit.collider.gameObject);//if hit some point then shoot through shootingSystem Fire Function
-
-            }
-            else
-            {
-                lineRenderer.SetPosition(1, new Vector3(0, 0, range));//if not hit, laser till range 
-            }
+                var isNotSameOwner = go.GetComponent<EntityData>().owner != unitData.owner;
+                if (isNotSameOwner)
+                    inRange.Add(colliders[i].gameObject);
+            }   
         }
+        if(inRange.Count > 0)
+        {
+            var sorted = inRange.OrderBy(go => Vector3.Distance(go.transform.position, transform.position));
+            this.nearestTarget = sorted.First();
+        }
+        else
+        {
+            this.nearestTarget = null;
+        }
+      
+          
+
     }
 
-    public void TurretLaser_Status(bool val)
-    {
-
-        lineRenderer.enabled = val;
-    }
 }
