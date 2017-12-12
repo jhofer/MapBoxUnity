@@ -106,20 +106,24 @@ public class UnitMovement : MonoBehaviour
             animNameOld = animName;
             animator.SetBool("ACS_"+animName, true);
         }
-		DrawPath (agent.path);
+
+		 DrawPath (agent.path);
+
     }
 
 
 
 	void DrawPath(NavMeshPath path ){
+		var line = GetComponent<LineRenderer> ();
+		line.enabled = GetComponent<UnitController> ().selected;
 		if(path.corners.Length < 2) //if the path has 1 or no corners, there is no need
 			return;
 
-		var line = GetComponent<LineRenderer> ();
+
 		line.SetVertexCount(path.corners.Length); //set the array of positions to the amount of corners
-		line.SetPosition(0,transform.position+Vector3.up*10);
+		line.SetPosition(0,transform.position+Vector3.up*1.1f);
 		for(var i = 1; i < path.corners.Length; i++){
-			line.SetPosition(i, path.corners[i]+Vector3.up*10); //go through each corner and set that to the line renderer's position
+			line.SetPosition(i, path.corners[i]+Vector3.up*1.1f); //go through each corner and set that to the line renderer's position
 		}
 	}
 

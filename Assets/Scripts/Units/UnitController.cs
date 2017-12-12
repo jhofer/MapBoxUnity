@@ -9,7 +9,7 @@ public class UnitController : MonoBehaviour, ISelectable, IMovable {
     public Vector3 target;
     private object agent;
     private float startTime;
-    private bool selected = false;
+    public bool selected = false;
 
     public Vector2d GetLocation()
     {
