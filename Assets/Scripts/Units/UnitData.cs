@@ -7,10 +7,16 @@ public class UnitData : EntityData {
     [Header("Attack")]
     [Tooltip("Time after which next shot will be fired")]
     public float fireDelay = 0.1f;
-    [Tooltip("Range of the Turret")]
-    public float range = 20;
-    [Tooltip("Attackable")]
+   
+    [Tooltip("Attackable Objects (tags)")]
     public string[] attackable = new string[] { "Unit" };// "Building"
+
+    [Header("Turret values")]
+    public float range = 20;
+    public float SpeedTurn = 50;
+    public float HorizontalConstraint = 360;
+    public float UpConstraint = 90;
+    public float DownConstraint = -90;
 
 
     [Header("Ammo")]
@@ -24,6 +30,8 @@ public class UnitData : EntityData {
     public float reloadTime = 2f;
     [Tooltip("Damage done by the bullet")]
     public float ammoDamage = 1;
+
+
 
     // Use this for initialization
     void Start () {
