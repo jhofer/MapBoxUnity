@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 120421273842408918}
   - component: {fileID: 114558230990645510}
   - component: {fileID: 114959322184026266}
+  - component: {fileID: 114205636533222160}
   m_Layer: 8
   m_Name: ACS17_LightningGun
   m_TagString: Unit
@@ -682,6 +683,23 @@ GameObject:
   - component: {fileID: 23842801685184478}
   m_Layer: 8
   m_Name: Object005
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1468552840992726
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4432059893133276}
+  - component: {fileID: 114874348856853982}
+  - component: {fileID: 114225427289560154}
+  m_Layer: 8
+  m_Name: ShootingAnimation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1480,6 +1498,7 @@ Transform:
   - {fileID: 4832035184457320}
   - {fileID: 4636850762307696}
   - {fileID: 4139718748237786}
+  - {fileID: 4432059893133276}
   m_Father: {fileID: 4787944733718474}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1975,6 +1994,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4291806342998904}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4432059893133276
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1468552840992726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.394, z: 0.776}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4065178670432676}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4455137317260952
 Transform:
@@ -4093,6 +4125,34 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114205636533222160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1130123214213022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dad31fb5b54248009ba007a97737343, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114225427289560154
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1468552840992726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5efe3bc5e3edb3e42b0a9a45eec91b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BeamColor: {r: 0.48965526, g: 1, b: 0, a: 1}
+  AnimationSpd: 0.1
+  Scale: 1
+  MaxLength: 32
+  bEnd: 0
+  bGero: 0
 --- !u!114 &114541775247069966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4149,6 +4209,20 @@ MonoBehaviour:
   totalAmmo: 500
   reloadTime: 2
   ammoDamage: 1
+--- !u!114 &114874348856853982
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1468552840992726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 153e2cbae5aa44109b991df7bb5369e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shot1: {fileID: 100002, guid: 5233ad8031c8bcc40a4ec895c2c8e74e, type: 2}
+  Shot2: {fileID: 100006, guid: 18e6997b0cea7f249bf0e687ba9da449, type: 2}
+  Wave: {fileID: 163602, guid: 2e71c373747c637418583232129f9bae, type: 2}
 --- !u!114 &114906334638511710
 MonoBehaviour:
   m_ObjectHideFlags: 1
