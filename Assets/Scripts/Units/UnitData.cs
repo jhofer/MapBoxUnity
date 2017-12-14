@@ -31,6 +31,8 @@ public class UnitData : EntityData {
     [Tooltip("Damage done by the bullet")]
     public float ammoDamage = 1;
 
+ 
+
 
 
     // Use this for initialization
