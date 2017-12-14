@@ -11,11 +11,11 @@ public class Shooter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		var target = GetComponent<AimSystem> ().nearestTarget;
-		if (target != null) {
-			var shootingAnimator = GetComponentInChildren<IShootingAnimation> ();
-			shootingAnimator.Fire();
-		
-		}
-	}
+        if (GetComponent<AimSystem>().Locked)
+        {
+            var shootingAnimator = GetComponentInChildren<IShootingAnimation>();
+            shootingAnimator.Fire();
+
+        }
+    }
 }
