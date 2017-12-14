@@ -32,7 +32,7 @@ public class AimSystem : MonoBehaviour {
 
             if (isAttackable && isNotThis )
             {
-                var isNotSameOwner = go.GetComponent<EntityData>().owner != unitData.owner;
+                var isNotSameOwner = true;//go.GetComponent<EntityData>().owner != unitData.owner;
                 if (isNotSameOwner)
                     inRange.Add(colliders[i].gameObject);
             }   
