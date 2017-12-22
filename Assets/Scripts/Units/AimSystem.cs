@@ -29,10 +29,10 @@ public class AimSystem : MonoBehaviour {
             var go = colliders[i].gameObject;
             var isAttackable = unitData.attackable.Contains(go.tag);
             var isNotThis = go != gameObject;
+            var destroyable = go.GetComponent<IDestroyable>();
+            var isNotDead = destroyable != null ? !destroyable.IsDead() : true;
 
-
-
-            if (isAttackable && isNotThis)
+            if (isAttackable && isNotThis && isNotDead)
             {
                 var isNotSameOwner = true;//go.GetComponent<EntityData>().owner != unitData.owner;
                 if (isNotSameOwner)
