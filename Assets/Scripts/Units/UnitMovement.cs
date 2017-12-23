@@ -115,12 +115,12 @@ public class UnitMovement : MonoBehaviour
 
 	void DrawPath(NavMeshPath path ){
 		var line = GetComponent<LineRenderer> ();
-		line.enabled = GetComponent<UnitController> ().selected;
+		line.enabled = GameManager.instance.IsUnitSelected(gameObject.GetComponentInParent<EntityData>());
 		if(path.corners.Length < 2) //if the path has 1 or no corners, there is no need
 			return;
 
 
-		line.SetVertexCount(path.corners.Length); //set the array of positions to the amount of corners
+		line.positionCount = (path.corners.Length); //set the array of positions to the amount of corners
 		line.SetPosition(0,transform.position+Vector3.up*1.1f);
 		for(var i = 1; i < path.corners.Length; i++){
 			line.SetPosition(i, path.corners[i]+Vector3.up*1.1f); //go through each corner and set that to the line renderer's position

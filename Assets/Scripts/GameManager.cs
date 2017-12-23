@@ -9,8 +9,8 @@ using System.Linq;
 public class GameManager : MonoBehaviour {
 
     public string currentPlayer = "Jonas";//TODO: set real player 
-    public HashSet<GameObject> unitSelection = new HashSet<GameObject>();
-    public Dictionary<string, HashSet<IMovable>> playerUnits = new Dictionary<string, HashSet<IMovable>>();
+	public HashSet<EntityData> unitSelection = new HashSet<EntityData>();
+	public Dictionary<string, HashSet<EntityData>> playerUnits = new Dictionary<string, HashSet<EntityData>>();
 
     public MouseManager mouseManager = new MouseManager();
 
@@ -59,13 +59,18 @@ public class GameManager : MonoBehaviour {
         throw new NotImplementedException();
     }
 
+	public bool IsUnitSelected (EntityData gameObject)
+	{
+		return unitSelection.Contains(gameObject);
+	}
+
      void Update()
     {
         mouseManager.CheckInput();
     }
 
 
-    internal void AddSelection(GameObject gameObject)
+	internal void AddSelection(EntityData gameObject)
     {
         if (unitSelection.Contains(gameObject))
             unitSelection.Remove(gameObject);
@@ -73,14 +78,11 @@ public class GameManager : MonoBehaviour {
             unitSelection.Add(gameObject);
     }
 
-    internal void SelectBuilding(Vector2d location)
-    {
-        if (buildingSelection.Contains(location))
-            buildingSelection.Remove(location);
-        else
-            buildingSelection.Add(location);
-    }
-
+	internal void ClearUnitSelection()
+	{
+		unitSelection.Clear();
+	}
+ 
     internal void SelectBuildings(HashSet<Vector2d> locations)
     {
        
@@ -101,17 +103,17 @@ public class GameManager : MonoBehaviour {
           
     }
 
-    internal void AddUnit(string player, IMovable gameObject)
+	internal void AddUnit(string player, EntityData gameObject)
     {
         if (!playerUnits.ContainsKey(player))
         {
-            playerUnits[player] = new HashSet<IMovable>();
+			playerUnits[player] = new HashSet<EntityData>();
         }
         playerUnits[player].Add(gameObject);
 
     }
 
-    internal HashSet<IMovable> GetPlayerUnits()
+	internal HashSet<EntityData> GetPlayerUnits()
     {
         if (playerUnits.ContainsKey(currentPlayer))
         {
@@ -119,7 +121,7 @@ public class GameManager : MonoBehaviour {
         }
         else
         {
-            return new HashSet<IMovable>();
+			return new HashSet<EntityData>();
         }
     }
 }

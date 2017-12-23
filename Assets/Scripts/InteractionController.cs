@@ -61,6 +61,9 @@ public class InteractionController : MonoBehaviour
           
 
         }
+
+
+		GameManager.instance.ClearUnitSelection ();
     }
 
     private void Click(int obj)
@@ -84,7 +87,7 @@ public class InteractionController : MonoBehaviour
                 }
             }
 
-            foreach (GameObject gameObject in GameManager.instance.unitSelection)
+			foreach (EntityData gameObject in GameManager.instance.unitSelection)
             {
                 MonoBehaviour[] movables = gameObject.GetComponents<MonoBehaviour>();
                 foreach (MonoBehaviour mb in movables)

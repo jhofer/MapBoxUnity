@@ -9,7 +9,7 @@ public class UnitController : MonoBehaviour, ISelectable, IMovable {
     public Vector3 target;
     private object agent;
     private float startTime;
-    public bool selected = false;
+   
 
     public Vector2d GetLocation()
     {
@@ -26,15 +26,15 @@ public class UnitController : MonoBehaviour, ISelectable, IMovable {
 
     public void Select()
     {
-        this.selected = !this.selected;
-        GameManager.instance.AddSelection(gameObject);
+   
+		GameManager.instance.AddSelection(gameObject.AddComponent<EntityData>());
     }
 
 
 
     // Use this for initialization
     void Start () {
-        GameManager.instance.AddUnit("Jonas", this);//TODO: set real player 
+		GameManager.instance.AddUnit("Jonas", GetComponent<EntityData>());//TODO: set real player 
         NavMeshHit closestHit;
 
         //if (NavMesh.SamplePosition(gameObject.transform.position, out closestHit, 500f, NavMesh.AllAreas))
@@ -47,7 +47,7 @@ public class UnitController : MonoBehaviour, ISelectable, IMovable {
 	void Update () {
 
        var projector =  GetComponentInChildren<Projector>(true);
-        projector.enabled = this.selected;
+		projector.enabled = GameManager.instance.IsUnitSelected(GetComponent<EntityData>());
         //if (Time.time > .1f)
         //{
         //    GetComponent<NavMeshAgent>().enabled = true;

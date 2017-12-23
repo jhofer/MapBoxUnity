@@ -86,7 +86,7 @@ public class MouseManager
 
 
 
-            if ( down[button] && GetMouseDistance(button) <= 4f && GetClickTime(0) > 1)
+			if ( down[button] && GetMouseDistance(button) <= 10f && GetClickTime(button) > 1)
             {
                 Debug.Log("Long click");
                 OnLongClick(button);

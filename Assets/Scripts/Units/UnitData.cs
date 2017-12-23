@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UnitData : EntityData {
     
+
+
     [Header("Attack")]
     [Tooltip("Time after which next shot will be fired")]
     public float fireDelay = 0.1f;

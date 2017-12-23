@@ -88,16 +88,17 @@ public class CameraBoundsTileProvider : AbstractTileProvider
         }
 
         var newUnitTiles = new HashSet<Vector2d>();
-        foreach (IMovable item in GameManager.instance.GetPlayerUnits())
+		foreach (EntityData item in GameManager.instance.GetPlayerUnits())
         {
-            var unitTile = TileCover.CoordinateToTileId(item.GetLocation(), _map.Zoom);
-            for (int x = unitTile.X - _visibleBuffer; x <= (unitTile.X + _visibleBuffer); x++)
-            {
-                for (int y = unitTile.Y - _visibleBuffer; y <= (unitTile.Y + _visibleBuffer); y++)
-                {
-                    AddTile(new UnwrappedTileId(_map.Zoom, x, y));
-                }
-            }
+			if (item is IMovable) {
+				var movable = item as IMovable;
+				var unitTile = TileCover.CoordinateToTileId (movable.GetLocation (), _map.Zoom);
+				for (int x = unitTile.X - _visibleBuffer; x <= (unitTile.X + _visibleBuffer); x++) {
+					for (int y = unitTile.Y - _visibleBuffer; y <= (unitTile.Y + _visibleBuffer); y++) {
+						AddTile (new UnwrappedTileId (_map.Zoom, x, y));
+					}
+				}
+			}
         }
 
     }
