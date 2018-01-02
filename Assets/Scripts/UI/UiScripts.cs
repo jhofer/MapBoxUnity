@@ -23,4 +23,9 @@ public class UiScripts : MonoBehaviour {
         cam.moveToPlayer = true;
         Debug.Log("klic");
     }
+
+
+//	public void ClickUnitInMenu(){
+//		Debug.Log("select unit");
+//	}
 }

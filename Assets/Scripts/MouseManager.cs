@@ -11,6 +11,7 @@ using Mapbox.Utils;
 using Mapbox.Unity.Map;
 using UnityEngine.AI;
 using Mapbox.Examples;
+using UnityEngine.EventSystems;
 using System;
 
 public class MouseManager
@@ -30,21 +31,6 @@ public class MouseManager
     float dragStartTime = 0.3f;
 
 
-    void CheckClick(int button)
-    {
-        var clickTimeDelta = Time.time - downTime[button];
-        if(clickTimeDelta >= 1)
-        {
-            Debug.Log("Long click");
-            OnLongClick(button);
-        }
-        else
-        {
-            Debug.Log("Long click");
-            OnClick(button);
-        }
-     
-    }
 
 
     float GetMouseDistance(int button)
@@ -145,7 +131,8 @@ public class MouseManager
 
     public void CheckInput()
     {
-        CheckClickAndDrag(0);
+		if(!EventSystem.current.IsPointerOverGameObject())
+        	CheckClickAndDrag(0);
        
 
     }
