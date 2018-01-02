@@ -27,7 +27,7 @@ public class UnitController : MonoBehaviour, ISelectable, IMovable {
     public void Select()
     {
    
-		GameManager.instance.AddSelection(gameObject.AddComponent<EntityData>());
+		GameManager.instance.AddSelection(gameObject.GetComponent<EntityData>());
     }
 
 

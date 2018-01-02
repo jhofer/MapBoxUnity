@@ -6,26 +6,18 @@ using Mapbox.Examples;
 public class UiScripts : MonoBehaviour {
 
 
-    [SerializeField]
-    CameraMovement cam;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    public void OnClick() {
+    public void ClickOnUnit(UnitDisplay unit)
+    {
+        var data = GetComponent<UnitDisplay>().data;
+    }
+
+    public void ClickOnMoveToPlayer(CameraMovement cam) {
         cam.moveToPlayer = true;
         Debug.Log("klic");
     }
 
 
-//	public void ClickUnitInMenu(){
-//		Debug.Log("select unit");
-//	}
+
 }

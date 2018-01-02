@@ -18,23 +18,22 @@ public class UnitListUpdater : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		var units = GameManager.instance.GetPlayerUnits();
+        var unitIds = units.Select(p => p.Id);
 
 
-		var uiItem = GetComponentsInChildren<UnitDisplay>().Select(u=>u.data);
-
-
-
-
+        var uiItems = GetComponentsInChildren<UnitDisplay>().Select(u=>u.data);
+        var uiItemIds = uiItems.Select(p => p.Id);
+        
 		foreach (var item in units) {
-			if(!uiItem.Select(p=>p.Id).Contains(item.Id)){
+            if (!uiItemIds.Contains(item.Id)){
 				var newItem = Instantiate(itemPrefab);
-				newItem.GetComponent<UnitDisplay> ().data = item;
+				newItem.GetComponent<UnitDisplay>().data = item;
 				newItem.transform.parent = gameObject.transform;
 			}
 		}
 
-		foreach (var item in uiItem) {
-			if(!units.Select(p=>p.Id).Contains(item.Id)){
+		foreach (var item in uiItems) {
+			if(!unitIds.Contains(item.Id)){
 				Destroy(item.gameObject);
 			}
 		}

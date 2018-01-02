@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ProgressBar;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class UnitDisplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        var unitData = GetComponent<UnitDisplay>().data;
+        var healthProcentag = unitData.currentHealth / unitData.maxHealth * 100;
+        GetComponentInChildren<ProgressBarBehaviour>().Value = healthProcentag;
+    }
 }
