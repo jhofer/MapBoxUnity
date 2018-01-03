@@ -14,8 +14,7 @@ public class UnitDisplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        var unitData = GetComponent<UnitDisplay>().data;
-        var healthProcentag = unitData.currentHealth / unitData.maxHealth * 100;
-        GetComponentInChildren<ProgressBarBehaviour>().Value = healthProcentag;
+        var health = GetComponent<UnitDisplay>().data.HealthPercentage;
+        GetComponentInChildren<ProgressBarBehaviour>().Value = health;
     }
 }

@@ -13,8 +13,7 @@ public class UnitUiController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        var healthProcentag = unitData.currentHealth / unitData.maxHealth * 100;
-        GetComponentInChildren<ProgressBarBehaviour>().Value = healthProcentag;
-
+        var progressBar = GetComponentInChildren<ProgressBarBehaviour>();
+        progressBar.Value = unitData.HealthPercentage;
     }
 }

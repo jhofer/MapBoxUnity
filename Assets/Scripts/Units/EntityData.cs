@@ -32,4 +32,13 @@ public class EntityData : MonoBehaviour, IDestroyable {
     {
         return currentHealth == 0;
     }
+
+    public float HealthPercentage
+    {
+        get
+        {
+            var healthProcentag = currentHealth / maxHealth * 100;
+            return healthProcentag;
+        }
+    }
 }
