@@ -16,10 +16,10 @@ public class UnitFactory : MonoBehaviour {
     {
         var prefabData = fourLeggedMech.GetComponent<EntityData>();
         
-        currentLatitudeLongitude = position.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
+        var currentLatitudeLongitude = position.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
 
-        var go = Instantiate(prefab, hit.point, Quaternion.identity);
-        go.transform.parent = unitsContainer.transform;
+//        var go = Instantiate(prefab, hit.point, Quaternion.identity);
+//        go.transform.parent = unitsContainer.transform;
 
     }
 }

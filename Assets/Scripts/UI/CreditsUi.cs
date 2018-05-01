@@ -11,6 +11,6 @@ public class CreditsUi : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        GetComponent<Text>().text = "$ " + GameManager.instance.CurrentPlayer.Credits;
+        	GetComponent<Text>().text = "$ " + GameManager.instance.CurrentPlayer.Credits;
 	}
 }

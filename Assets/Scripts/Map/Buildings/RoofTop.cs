@@ -37,7 +37,7 @@ public class RoofTop : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        GameObject go = GameObject.Find("Prefabs");
+		GameObject go = GameObject.Find("DecorationPrefabs");
         var prefabs = (PrefabContainer)go.GetComponent<PrefabContainer>();
         var prefab = prefabs.roofDecos[Random.Range(0, prefabs.roofDecos.Length)];
 

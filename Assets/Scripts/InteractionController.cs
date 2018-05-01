@@ -57,6 +57,8 @@ public class InteractionController : MonoBehaviour
             currentLatitudeLongitude = point.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
             
             var go =  Instantiate(prefab,hit.point,Quaternion.identity);
+            go.GetComponent<UnitData>().owner = GameManager.instance.currentPlayer;
+            GameManager.instance.AddEntity(go.GetComponent<EntityData>());//TODO: set real player
             go.transform.parent = unitsContainer.transform;
           
 

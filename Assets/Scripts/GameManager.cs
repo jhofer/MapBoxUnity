@@ -8,7 +8,7 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour {
 
-    public Guid currentPlayer;//TODO: set real player 
+	public Guid currentPlayer;//TODO: set real player 
 	
 	public Dictionary<Guid, HashSet<EntityData>> playerEntities = new Dictionary<Guid, HashSet<EntityData>>();
     public Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour {
         //Call the SetupScene function of the BoardManager script, pass it current level number.
         currentPlayer = Guid.NewGuid();//TODO: set real player 
         Debug.Log("GameManager Created");
+        players[currentPlayer] = new PlayerData("Jonas", currentPlayer,100);
 
     }
 
