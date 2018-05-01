@@ -23,9 +23,11 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+  public bool PlaceBuilding { get; internal set; }
 
-    //Awake is always called before any Start functions
-    void Awake()
+
+  //Awake is always called before any Start functions
+  void Awake()
     {
         //Check if instance already exists
         if (instance == null)

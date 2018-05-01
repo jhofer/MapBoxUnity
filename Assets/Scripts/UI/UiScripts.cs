@@ -15,7 +15,11 @@ public class UiScripts : MonoBehaviour {
 
     public void ClickOnMoveToPlayer(CameraMovement cam) {
         cam.moveToPlayer = true;
-        Debug.Log("klic");
+        Debug.Log("ClickOnUnit.ClickOnMoveToPlayer");
+    }
+
+    public void AddBuilding(){
+        GameManager.instance.PlaceBuilding=true;
     }
 
 

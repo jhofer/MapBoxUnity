@@ -14,93 +14,114 @@ using System;
 
 public class InteractionController : MonoBehaviour
 {
-    [SerializeField]
-    AbstractMap _map;
+  [SerializeField]
+  AbstractMap _map;
 
-    [SerializeField]
-    GameObject prefab;
+  [SerializeField]
+  GameObject prefab;
 
-    [SerializeField]
-    GameObject unitsContainer;
+  [SerializeField]
+  GameObject buildingPrefab;
 
-    Ray _ray;
+  GameObject buildingPreview;
+
+  [SerializeField]
+  GameObject unitsContainer;
+
+  Ray _ray;
 
 
 
-    private Vector2d currentLatitudeLongitude;
+  private Vector2d currentLatitudeLongitude;
 
-    public Vector2d CurrentLatitudeLongitude
+  public Vector2d CurrentLatitudeLongitude
+  {
+    get
     {
-        get
-        {
-            return currentLatitudeLongitude;
+      return currentLatitudeLongitude;
+    }
+
+
+  }
+
+  void Update()
+  {
+    RaycastHit hit;
+ 
+    if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
+    {
+        if(GameManager.instance.PlaceBuilding){
+            if(buildingPreview == null)
+                 this.buildingPreview = Instantiate(buildingPrefab, hit.point, Quaternion.identity);
+            if(hit.transform.gameObject.transform.parent.gameObject != this.buildingPreview)
+                this.buildingPreview.transform.position = hit.point;
         }
+    }
+  }
 
-    
+
+  private void Start()
+  {
+    GameManager.instance.mouseManager.OnClick += Click;
+    GameManager.instance.mouseManager.OnLongClick += LongClick;
+  }
+
+  private void LongClick(int obj)
+  {
+    RaycastHit hit;
+
+    _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    if (Physics.Raycast(_ray, out hit, 1000.0f))
+    {
+      var point = hit.point;
+      //point.y += 1;
+      currentLatitudeLongitude = point.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
+
+      var go = Instantiate(prefab, hit.point, Quaternion.identity);
+      go.GetComponent<UnitData>().owner = GameManager.instance.currentPlayer;
+      GameManager.instance.AddEntity(go.GetComponent<EntityData>()); //TODO: set real player
+      go.transform.parent = unitsContainer.transform;
     }
 
-    private void Start()
-    {
-        GameManager.instance.mouseManager.OnClick += Click;
-        GameManager.instance.mouseManager.OnLongClick += LongClick;
-    }
 
-    private void LongClick(int obj)
+    GameManager.instance.ClearUnitSelection();
+  }
+
+  private void Click(int obj)
+  {
+    RaycastHit hit;
+
+    _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    if (Physics.Raycast(_ray, out hit, 1000.0f))
     {
-        RaycastHit hit;
-      
-        _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(_ray, out hit, 1000.0f))
+      var point = hit.point;
+      currentLatitudeLongitude = point.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
+
+      MonoBehaviour[] list = hit.transform.gameObject.GetComponentsInParent<MonoBehaviour>();
+      foreach (MonoBehaviour mb in list)
+      {
+        if (mb is ISelectable)
         {
-            var point = hit.point;
-            //point.y += 1;
-            currentLatitudeLongitude = point.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
-            
-            var go =  Instantiate(prefab,hit.point,Quaternion.identity);
-            go.GetComponent<UnitData>().owner = GameManager.instance.currentPlayer;
-            GameManager.instance.AddEntity(go.GetComponent<EntityData>()); //TODO: set real player
-            go.transform.parent = unitsContainer.transform;
+          ISelectable selectable = (ISelectable)mb;
+          selectable.Select();
+          return;
         }
+      }
 
-
-		GameManager.instance.ClearUnitSelection ();
-    }
-
-    private void Click(int obj)
-    {
-        RaycastHit hit;
-       
-        _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(_ray, out hit, 1000.0f))
+      foreach (EntityData gameObject in GameManager.instance.CurrentPlayer.unitSelection)
+      {
+        MonoBehaviour[] movables = gameObject.GetComponents<MonoBehaviour>();
+        foreach (MonoBehaviour mb in movables)
         {
-            var point = hit.point;
-            currentLatitudeLongitude = point.GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
+          if (mb is IMovable)
+          {
+            IMovable selectable = (IMovable)mb;
+            selectable.Move(hit.point);
 
-            MonoBehaviour[] list = hit.transform.gameObject.GetComponentsInParent<MonoBehaviour>();
-            foreach (MonoBehaviour mb in list)
-            {
-                if (mb is ISelectable)
-                {
-                    ISelectable selectable = (ISelectable)mb;
-                    selectable.Select();
-                    return;
-                }
-            }
-
-			foreach (EntityData gameObject in GameManager.instance.CurrentPlayer.unitSelection)
-            {
-                MonoBehaviour[] movables = gameObject.GetComponents<MonoBehaviour>();
-                foreach (MonoBehaviour mb in movables)
-                {
-                    if (mb is IMovable)
-                    {
-                        IMovable selectable = (IMovable)mb;
-                        selectable.Move(hit.point);
-                       
-                    }
-                }
-            }
+          }
         }
-
+      }
     }
+
+  }
 }
