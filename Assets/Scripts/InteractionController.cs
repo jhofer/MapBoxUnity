@@ -58,10 +58,8 @@ public class InteractionController : MonoBehaviour
             
             var go =  Instantiate(prefab,hit.point,Quaternion.identity);
             go.GetComponent<UnitData>().owner = GameManager.instance.currentPlayer;
-            GameManager.instance.AddEntity(go.GetComponent<EntityData>());//TODO: set real player
+            GameManager.instance.AddEntity(go.GetComponent<EntityData>()); //TODO: set real player
             go.transform.parent = unitsContainer.transform;
-          
-
         }
 
 
