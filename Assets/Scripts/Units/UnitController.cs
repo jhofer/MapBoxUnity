@@ -34,7 +34,7 @@ public class UnitController : MonoBehaviour, ISelectable, IMovable {
 
     // Use this for initialization
     void Start () {
-		GameManager.instance.AddUnit("Jonas", GetComponent<EntityData>());//TODO: set real player 
+		GameManager.instance.AddEntity(GetComponent<EntityData>());//TODO: set real player 
         NavMeshHit closestHit;
 
         //if (NavMesh.SamplePosition(gameObject.transform.position, out closestHit, 500f, NavMesh.AllAreas))

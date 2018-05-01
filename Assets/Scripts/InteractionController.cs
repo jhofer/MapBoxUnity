@@ -87,7 +87,7 @@ public class InteractionController : MonoBehaviour
                 }
             }
 
-			foreach (EntityData gameObject in GameManager.instance.unitSelection)
+			foreach (EntityData gameObject in GameManager.instance.CurrentPlayer.unitSelection)
             {
                 MonoBehaviour[] movables = gameObject.GetComponents<MonoBehaviour>();
                 foreach (MonoBehaviour mb in movables)

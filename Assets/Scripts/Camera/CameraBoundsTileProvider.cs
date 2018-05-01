@@ -88,7 +88,7 @@ public class CameraBoundsTileProvider : AbstractTileProvider
         }
 
         var newUnitTiles = new HashSet<Vector2d>();
-		foreach (EntityData item in GameManager.instance.GetPlayerUnits())
+		foreach (EntityData item in GameManager.instance.GetPlayerEntities())
         {
 			if (item is IMovable) {
 				var movable = item as IMovable;

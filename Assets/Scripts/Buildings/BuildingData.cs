@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingData : MonoBehaviour {
+public class BuildingData : UnitData {
 
 	// Use this for initialization
 	void Start () {

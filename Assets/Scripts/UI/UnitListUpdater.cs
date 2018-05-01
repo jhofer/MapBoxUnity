@@ -17,7 +17,7 @@ public class UnitListUpdater : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		var units = GameManager.instance.GetPlayerUnits();
+		var units = GameManager.instance.GetPlayerEntities();
         var unitIds = units.Select(p => p.Id);
 
 

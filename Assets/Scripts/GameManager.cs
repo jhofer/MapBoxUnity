@@ -8,14 +8,20 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour {
 
-    public string currentPlayer = "Jonas";//TODO: set real player 
-	public HashSet<EntityData> unitSelection = new HashSet<EntityData>();
-	public Dictionary<string, HashSet<EntityData>> playerUnits = new Dictionary<string, HashSet<EntityData>>();
+    public Guid currentPlayer;//TODO: set real player 
+	
+	public Dictionary<Guid, HashSet<EntityData>> playerEntities = new Dictionary<Guid, HashSet<EntityData>>();
+    public Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
 
     public MouseManager mouseManager = new MouseManager();
 
     public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
     public HashSet<Vector2d> buildingSelection = new HashSet<Vector2d>();
+
+    public PlayerData CurrentPlayer { get {
+            return this.players[this.currentPlayer];
+        }
+    }
 
 
     //Awake is always called before any Start functions
@@ -49,7 +55,7 @@ public class GameManager : MonoBehaviour {
     void InitGame()
     {
         //Call the SetupScene function of the BoardManager script, pass it current level number.
-  
+        currentPlayer = Guid.NewGuid();//TODO: set real player 
         Debug.Log("GameManager Created");
 
     }
@@ -61,7 +67,7 @@ public class GameManager : MonoBehaviour {
 
 	public bool IsUnitSelected (EntityData gameObject)
 	{
-		return unitSelection.Contains(gameObject);
+		return CurrentPlayer.unitSelection.Contains(gameObject);
 	}
 
      void Update()
@@ -72,15 +78,15 @@ public class GameManager : MonoBehaviour {
 
 	internal void AddSelection(EntityData gameObject)
     {
-        if (unitSelection.Contains(gameObject))
-            unitSelection.Remove(gameObject);
+        if (CurrentPlayer.unitSelection.Contains(gameObject))
+            CurrentPlayer.unitSelection.Remove(gameObject);
         else
-            unitSelection.Add(gameObject);
+            CurrentPlayer.unitSelection.Add(gameObject);
     }
 
 	internal void ClearUnitSelection()
 	{
-		unitSelection.Clear();
+        CurrentPlayer.unitSelection.Clear();
 	}
  
     internal void SelectBuildings(HashSet<Vector2d> locations)
@@ -103,21 +109,22 @@ public class GameManager : MonoBehaviour {
           
     }
 
-	internal void AddUnit(string player, EntityData gameObject)
+	internal void AddEntity(EntityData entityData)
     {
-        if (!playerUnits.ContainsKey(player))
+        var playerId = entityData.owner;
+        if (!playerEntities.ContainsKey(playerId))
         {
-			playerUnits[player] = new HashSet<EntityData>();
+            playerEntities[playerId] = new HashSet<EntityData>();
         }
-        playerUnits[player].Add(gameObject);
+        playerEntities[playerId].Add(entityData);
 
     }
 
-	internal HashSet<EntityData> GetPlayerUnits()
+	internal HashSet<EntityData> GetPlayerEntities()
     {
-        if (playerUnits.ContainsKey(currentPlayer))
+        if (playerEntities.ContainsKey(currentPlayer))
         {
-            return playerUnits[currentPlayer];
+            return playerEntities[currentPlayer];
         }
         else
         {

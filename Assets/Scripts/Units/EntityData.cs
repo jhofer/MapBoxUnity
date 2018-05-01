@@ -6,9 +6,9 @@ using UnityEngine;
 public class EntityData : MonoBehaviour, IDestroyable {
     [Header("Unit")]
     [Tooltip("Health of the Object")]
-    public float currentHealth = 90;
+    public float currentHealth = 100;
     public float maxHealth = 100;
-    public string owner = "Jonas"; //TODO Use real players
+    public Guid owner;
 	private Guid id= Guid.NewGuid();
 
 	public Guid Id {
